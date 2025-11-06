@@ -22,7 +22,7 @@
         
         .mobile-card {
             /* Dark Charcoal Card Background */
-            background: #1f1f1f;
+            background: #292929;
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
         }
@@ -58,7 +58,7 @@
         
         .status-badge-old {
             /* Expired status gradient */
-            background: linear-gradient(135deg, #b1ae05 0%, #d97706 100%);
+            background: linear-gradient(135deg, #b87801 0%, #d97706 100%);
         }
         
         .slide-up {
@@ -109,12 +109,12 @@
         
         .header-gradient {
             /* Header gradient */
-            background: linear-gradient(135deg, #300202 0%, #1b1914 100%);
+            background: linear-gradient(135deg, #1d1c1c 0%, #000000 100%);
         }
         
         input:focus, select:focus {
             outline: none;
-            border-color: #8b8383;
+            border-color: #a31717;
             box-shadow: 0 0 0 3px rgba(12, 3, 3, 0.3);
         }
         
@@ -146,8 +146,7 @@
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-3">
                 <div class="w-12 h-12 bg-black/40 backdrop-blur rounded-2xl flex items-center justify-center">
-                    <div class="w-7 h-7 logo-icon flex items-center justify-center">
-                    </div>
+                    <img src="https://www.carlsjr.com/images/star-ft.png" alt="">
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold text-yellow-400">Carl's Jr</h1>
@@ -185,8 +184,7 @@
                 <span id="oil-count" class="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-white text-sm font-bold">0</span>
             </div>
             <div id="oil-list" class="space-y-3">
-                <!-- Oil entries will be rendered here -->
-            </div>
+                </div>
         </div>
         
         <div id="content-soap" class="content-section hidden">
@@ -195,8 +193,7 @@
                 <span id="soap-count" class="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-white text-sm font-bold">0</span>
             </div>
             <div id="soap-list" class="space-y-3">
-                <!-- Soap entries will be rendered here -->
-            </div>
+                </div>
         </div>
     </main>
     
@@ -223,7 +220,6 @@
         </div>
     </nav>
     
-    <!-- Modal for Adding New Entry -->
     <div id="add-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-end flex-col z-40 fade-in">
         <div class="mobile-card w-full rounded-b-none slide-up">
             <div class="p-6 border-b border-gray-700">
@@ -241,16 +237,17 @@
             <form id="entry-form" class="p-6">
                 <div class="mb-5">
                     <label class="block text-sm font-bold text-white/80 mb-2">Day</label>
-                    <select id="day-input" class="w-full px-4 py-4 border-2 border-gray-700 bg-black rounded-2xl text-base transition text-white">
-                        <option value="">Select a day</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
-                    </select>
+                    <div id="day-buttons-container" class="grid grid-cols-4 gap-2">
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Monday">Mon</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Tuesday">Tue</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Wednesday">Wed</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Thursday">Thu</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Friday">Fri</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Saturday">Sat</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="Sunday">Sun</button>
+                        <button type="button" class="day-select-btn bg-gray-700 text-white/80 rounded-xl py-2 px-1 text-xs transition duration-150 ease-in-out hover:bg-gray-600" data-day="">Clear</button>
+                    </div>
+                    <input type="hidden" id="day-input" value="">
                 </div>
                 
                 <div class="mb-6">
@@ -270,7 +267,6 @@
         </div>
     </div>
 
-    <!-- Modal for Custom Alerts/Messages -->
     <div id="msg-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 fade-in">
         <div class="mobile-card p-6 w-11/12 max-w-sm bounce-in text-center">
             <h4 id="msg-title" class="text-xl font-bold mb-3 text-yellow-400"></h4>
@@ -281,7 +277,6 @@
         </div>
     </div>
 
-    <!-- Modal for Custom Confirmation (Delete) -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 fade-in">
         <div class="mobile-card p-6 w-11/12 max-w-sm bounce-in text-center">
             <h4 class="text-xl font-bold mb-3 text-red-500">Confirm Deletion</h4>
@@ -308,20 +303,22 @@
         const closeAddModalBtn = document.getElementById('close-add-modal');
         const cancelBtn = document.getElementById('cancel-btn');
         const entryForm = document.getElementById('entry-form');
-        const dayInput = document.getElementById('day-input');
+        
+        // Modal Inputs
+        const dayInput = document.getElementById('day-input'); 
+        const dayButtonsContainer = document.getElementById('day-buttons-container');
         const dateInput = document.getElementById('date-input');
         
-        // Custom Message Modal Elements
+        // Custom Modal Elements
         const msgModal = document.getElementById('msg-modal');
         const msgTitle = document.getElementById('msg-title');
         const msgContent = document.getElementById('msg-content');
         const msgCloseBtn = document.getElementById('msg-close-btn');
 
-        // Custom Confirmation Modal Elements
         const confirmModal = document.getElementById('confirm-modal');
         const confirmOkBtn = document.getElementById('confirm-ok-btn');
         const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
-        let pendingDeleteAction = null; // Store the function to execute on confirmation
+        let pendingDeleteAction = null; 
 
         // Navigation and Content Elements
         const navOil = document.getElementById('nav-oil');
@@ -377,9 +374,35 @@
             addModal.classList.add('hidden');
             addModal.classList.remove('flex');
             entryForm.reset();
+            
+            // Reset the custom day input and button styles
+            dayInput.value = ''; 
+            document.querySelectorAll('.day-select-btn').forEach(btn => {
+                btn.classList.remove('bg-red-700', 'text-white', 'font-bold');
+                btn.classList.add('bg-gray-700', 'text-white/80');
+            });
+            
             document.body.style.overflow = '';
         }
         
+        // Function to handle day button selection
+        function handleDaySelection(selectedDay, buttonElement) {
+            // 1. Clear active state from all buttons
+            document.querySelectorAll('.day-select-btn').forEach(btn => {
+                btn.classList.remove('bg-red-700', 'text-white', 'font-bold');
+                btn.classList.add('bg-gray-700', 'text-white/80');
+            });
+
+            // 2. Set active state on the clicked button (unless it's the "Clear" button with data-day="")
+            if (selectedDay) {
+                buttonElement.classList.add('bg-red-700', 'text-white', 'font-bold');
+                buttonElement.classList.remove('bg-gray-700', 'text-white/80');
+            }
+
+            // 3. Update the hidden input field value
+            dayInput.value = selectedDay;
+        }
+
         // --- Core App Logic ---
 
         function switchTab(product) {
@@ -419,7 +442,6 @@
                 return await response.json();
             } catch (error) {
                 console.error(`Could not fetch ${product} entries:`, error);
-                showMessage("Error", "Could not connect to the backend API or fetch data.");
                 return [];
             }
         }
@@ -428,7 +450,8 @@
             const { oil, soap } = await fetchAllData();
             
             const total = oil.length + soap.length;
-            const allEntries = [...oil, ...soap];
+            // Ensure status property exists before filtering
+            const allEntries = [...oil, ...soap].filter(item => item.status); 
             const active = allEntries.filter(item => item.status === 'New Use').length;
             const expired = allEntries.filter(item => item.status === 'Old EXP').length;
             
@@ -438,17 +461,31 @@
             oilCount.textContent = oil.length;
             soapCount.textContent = soap.length;
         }
-
+        
+        // 🚨 MODIFIED: Sort Oldest-First, then Reverse (Newest at Index 0)
         async function fetchAndRender(product) {
             const items = await fetchEntries(product);
-            renderList(product, items);
+            
+            // 1. Sort items by date from OLDEST to NEWEST
+            let sortedItems = items.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return dateA - dateB; 
+            });
+            
+            // 2. Reverse the array: NEWEST is now at index 0 (will be displayed at the top)
+            sortedItems.reverse(); 
+
+            renderList(product, sortedItems);
             await updateStats();
         }
 
+        // 🚨 MODIFIED: Custom Numbering (Total - Index)
         function renderList(product, items) {
             const list = product === 'oil' ? oilList : soapList;
+            const totalItems = items.length; // យកចំនួនធាតុសរុប
             
-            if (items.length === 0) {
+            if (totalItems === 0) {
                 list.innerHTML = `
                     <div class="mobile-card p-8 text-center empty-state">
                         <svg class="w-16 h-16 mx-auto mb-3 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -461,35 +498,41 @@
                 return;
             }
             
-            list.innerHTML = items.map((item, index) => `
-                <div class="mobile-card p-4 fade-in">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-4 flex-1">
-                            <div class="w-12 h-12 ${item.status === 'New Use' ? 'status-badge-new' : 'status-badge-old'} rounded-2xl flex items-center justify-center">
-                                <span class="text-white font-bold text-lg">${index + 1}</span>
+            // Numbering Logic: Total Items - Current Index
+            // Index 0 (Newest/Top) gets Total number.
+            // Last Index (Oldest/Bottom) gets #1.
+            list.innerHTML = items.map((item, index) => {
+                const customNumber = totalItems - index;
+
+                return `
+                    <div class="mobile-card p-4 fade-in">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4 flex-1">
+                                <div class="w-12 h-12 ${item.status === 'New Use' ? 'status-badge-new' : 'status-badge-old'} rounded-2xl flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">${customNumber}</span> 
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white text-base">${item.day}</h4>
+                                    <p class="text-sm text-gray-400">${item.date}</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <h4 class="font-bold text-white text-base">${item.day}</h4>
-                                <p class="text-sm text-gray-400">${item.date}</p>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-3 py-1.5 ${item.status === 'New Use' ? 'bg-green-600/20 text-green-300' : 'bg-amber-600/20 text-amber-300'} rounded-xl text-xs font-bold">
+                                    ${item.status === 'New Use' ? 'USE' : 'Expired'}
+                                </span>
+                                <button onclick="handleDelete('${product}', '${item._id}')" class="w-10 h-10 bg-red-800/20 rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                    </svg>
+                                </button>
                             </div>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="px-3 py-1.5 ${item.status === 'New Use' ? 'bg-green-600/20 text-green-300' : 'bg-amber-600/20 text-amber-300'} rounded-xl text-xs font-bold">
-                                ${item.status === 'New Use' ? 'Active' : 'Expired'}
-                            </span>
-                            <button onclick="handleDelete('${product}', '${item._id}')" class="w-10 h-10 bg-red-800/20 rounded-xl flex items-center justify-center">
-                                <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                </svg>
-                            </button>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         window.handleDelete = function(product, id) {
-            // Set up the delete action function to be executed upon confirmation
             const deleteAction = async () => {
                 hideConfirm();
                 try {
@@ -513,6 +556,57 @@
             showConfirm(deleteAction);
         };
 
+        // --- BATCH INSERTION UTILITY (For quick testing/loading data) ---
+        window.insertHardcodedOilData = async function() {
+            const inventoryData = [
+                { day: "Saturday", date: "2025-11-30" }, 
+                { day: "Saturday", date: "2025-11-30" }, 
+                { day: "Saturday", date: "2025-11-29" }, 
+                { day: "Friday", date: "2025-11-22" },   
+                { day: "Friday", date: "2025-11-22" },   
+                { day: "Saturday", date: "2025-11-17" }, 
+                { day: "Saturday", date: "2025-11-07" }  
+            ];
+            
+            const product = 'oil';
+            let successCount = 0;
+            let failCount = 0;
+            
+            showMessage("Loading Data...", `Inserting ${inventoryData.length} entries for Cooking Oil. Please wait.`);
+
+            for (const [index, entry] of inventoryData.entries()) {
+                try {
+                    const payload = { day: entry.day, date: entry.date };
+                    
+                    const response = await fetch(API_BASE_URL + product, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        successCount++;
+                    } else {
+                        failCount++;
+                    }
+                } catch (error) {
+                    failCount++;
+                }
+            }
+
+            hideMessage();
+            if (successCount > 0) {
+                // Switch to Oil tab and refresh view
+                switchTab('oil'); 
+                showMessage("Insertion Complete", `Successfully added ${successCount} Oil entries.`);
+            } else if (failCount > 0) {
+                showMessage("Insertion Failed", `Could not add entries. Check your API server.`);
+            } else {
+                 showMessage("No Data Added", "No entries were successfully added.");
+            }
+        };
+
+
         // --- Event Listeners ---
         
         navOil.addEventListener('click', () => switchTab('oil'));
@@ -524,6 +618,15 @@
 
         addModal.addEventListener('click', (e) => {
             if (e.target === addModal) hideAddModal();
+        });
+        
+        // Event listener for Day Buttons using delegation
+        dayButtonsContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('.day-select-btn');
+            if (button) {
+                const selectedDay = button.getAttribute('data-day');
+                handleDaySelection(selectedDay, button);
+            }
         });
 
         // Message Modal Listeners
@@ -547,7 +650,8 @@
         entryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const day = dayInput.value.trim();
+            // Reading the value from the hidden input, set by the buttons
+            const day = dayInput.value.trim(); 
             const date = dateInput.value.trim();
             
             if (!day || !date) {
