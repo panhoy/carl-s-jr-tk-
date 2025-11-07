@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Carl's Jr Mobile - TK Inventory</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="https://www.carlsjr.com/images/star-ft.png" type="image/png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
         
@@ -14,51 +15,183 @@
         }
         
         body {
-            /* Full Black Background */
             background: #000000;
             overflow-x: hidden;
             color: #ffffff;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(18, 175, 90, 0.05) 50%), 
+                linear-gradient(90deg, transparent 50%, rgba(18, 175, 90, 0.02) 50%);
+            background-size: 100% 2px, 2px 100%;
+            animation: scan-lines 10s linear infinite;
+            position: relative;
         }
         
+        /* 🌌 STARFIELD BACKGROUND */
+        body:before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgb(0, 255, 119), transparent),
+                radial-gradient(2px 2px at 60px 70px, #ff0000, transparent),
+                radial-gradient(1px 1px at 50px 50px, #e100ff, transparent),
+                radial-gradient(1px 1px at 130px 80px, #00ff77, transparent),
+                radial-gradient(2px 2px at 90px 10px, #e62e2d, transparent);
+            background-size: 200px 200px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px, 150px 50px;
+            animation: starfield 60s linear infinite;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes starfield {
+            from { transform: translateY(0); }
+            to { transform: translateY(-200px); }
+        }
+        
+        @keyframes scan-lines {
+            from { background-position: 0 0; }
+            to { background-position: 0 500px; }
+        }
+
+        /* 🌟 PARALLAX FLOAT EFFECT */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            33% { transform: translateY(-8px) translateX(3px); }
+            66% { transform: translateY(-3px) translateX(-3px); }
+        }
+
         .mobile-card {
-            /* Dark Charcoal Card Background */
             background: #292929;
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .mobile-card:nth-child(even) {
+            animation-delay: 1s;
+        }
+        
+        .mobile-card:nth-child(3n) {
+            animation-delay: 2s;
+        }
+        
+        /* 💫 HOLOGRAM GLOW */
+        .mobile-card:hover {
+            box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.6), 
+                0 0 40px rgba(0, 0, 0, 0.4),
+                0 15px 35px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px) scale(1.02);
+        }
+        
+        /* 🌊 WAVE ANIMATION */
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .mobile-card:hover h4 {
+            animation: wave 0.6s ease-in-out;
         }
         
         .bottom-nav {
-            /* Black Nav Background */
             background: #000000;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6);
             border-radius: 24px 24px 0 0;
+            position: relative;
+            z-index: 30;
         }
         
+        /* 🎯 MAGNETIC FAB BUTTON */
         .fab-button {
-            /* Solid Green FAB */
             background: #169611; 
             box-shadow: 0 8px 20px rgba(22, 150, 17, 0.6);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
         }
         
         .fab-button:active {
             transform: scale(0.95);
         }
         
-        .nav-item-active {
-            /* Active tab accent color */
-            color: #e62e2d; 
-            background: rgba(230, 46, 45, 0.1);
+        .fab-button:hover {
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 12px 30px rgba(22, 150, 17, 0.9);
+        }
+
+        /* 🔥 PULSE RINGS */
+        .fab-button:before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 3px solid #169611;
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse-ring 2s infinite cubic-bezier(0.2, 0, 0.8, 1);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.3); opacity: 0.8; }
+            100% { transform: scale(1.5); opacity: 0; }
         }
         
+        .nav-item-active {
+            color: #e62e2d; 
+            background: rgba(230, 46, 45, 0.1);
+            position: relative;
+        }
+        
+        /* ⚡ LIGHTNING EFFECT for Active Nav */
+        .nav-item-active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e62e2d, transparent);
+            animation: lightning 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes lightning {
+            0%, 100% { opacity: 0.3; width: 40%; }
+            50% { opacity: 1; width: 60%; }
+        }
+
+        .nav-item:hover {
+            color: #12af5a !important; 
+            box-shadow: 0 0 10px rgba(0, 255, 119, 0.5);
+            transition: all 0.2s ease-in-out;
+            transform: translateY(-2px);
+        }
+        
+        /* 💓 HEARTBEAT PULSE */
         .status-badge-new {
-            /* Active status gradient */
             background: linear-gradient(135deg, #12af5a 0%, #0a7f43 100%);
+            animation: status-pulse 2s ease-in-out infinite;
         }
         
         .status-badge-old {
-            /* Expired status gradient */
             background: linear-gradient(135deg, #b87801 0%, #d97706 100%);
+            animation: status-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes status-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         }
         
         .slide-up {
@@ -103,54 +236,276 @@
             }
         }
         
-        .swipe-delete {
-            transition: transform 0.3s ease;
+        .header-gradient {
+            background: linear-gradient(135deg, #1d1c1c 0%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+            z-index: 30;
         }
         
-        .header-gradient {
-            /* Header gradient */
-            background: linear-gradient(135deg, #1d1c1c 0%, #000000 100%);
+        /* ✨ SHIMMER EFFECT */
+        .header-gradient:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(45deg);
+            animation: shimmer 8s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* 🎨 GRADIENT ANIMATION */
+        .animated-gradient {
+            background: linear-gradient(135deg, #169611 0%, #12af5a 50%, #169611 100%);
+            background-size: 400% 400%;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         input:focus, select:focus {
             outline: none;
-            border-color: #a31717;
-            box-shadow: 0 0 0 3px rgba(12, 3, 3, 0.3);
+            border-color: #12af5a;
+            box-shadow: 0 0 0 3px rgba(18, 175, 90, 0.3);
         }
         
+        /* 🫁 BREATHING EFFECT */
         .empty-state {
             opacity: 0.6;
-            color: #888888; 
+            color: #888888;
+            animation: breathe 3s ease-in-out infinite;
         }
         
-        .logo-icon {
-            /* Custom styling for the logo */
-            background: #ffb900;
-            border-radius: 50%; 
-            position: relative;
+        @keyframes breathe {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
         }
-        .logo-icon:before {
-            content: '★'; 
-            color: #e62e2d;
-            font-size: 20px;
+        
+        /* 🎪 STAT CARD FLIP */
+        .stat-card {
+            perspective: 1000px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+        
+        /* 🔥 DELETE BUTTON SHAKE */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px) rotate(-5deg); }
+            75% { transform: translateX(3px) rotate(5deg); }
+        }
+        
+        .delete-btn:hover {
+            animation: shake 0.3s ease;
+        }
+        
+        /* 💫 SPARKLE EFFECT */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffb900;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+        
+        .sparkle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 80%; left: 80%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 50%; left: 90%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 30%; left: 70%; animation-delay: 1.5s; }
+
+        /* 🕳️ BLACK HOLE EFFECT */
+        @keyframes blackhole-pulse {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                box-shadow: 
+                    0 0 20px rgba(18, 175, 90, 0.3),
+                    0 0 40px rgba(18, 175, 90, 0.2),
+                    0 0 60px rgba(18, 175, 90, 0.1),
+                    inset 0 0 20px rgba(0, 0, 0, 0.8);
+            }
+            50% { 
+                transform: scale(1.05) rotate(180deg);
+                box-shadow: 
+                    0 0 30px rgba(18, 175, 90, 0.5),
+                    0 0 60px rgba(18, 175, 90, 0.3),
+                    0 0 90px rgba(18, 175, 90, 0.2),
+                    inset 0 0 30px rgba(0, 0, 0, 1);
+            }
+        }
+
+        @keyframes blackhole-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes accretion-disk {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.1);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        .black-hole {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .black-hole-core {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #000000 0%, #0a0a0a 40%, transparent 70%);
+            border-radius: 50%;
+            animation: blackhole-pulse 4s ease-in-out infinite;
+            box-shadow: 
+                0 0 20px rgba(18, 175, 90, 0.3),
+                0 0 40px rgba(18, 175, 90, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .accretion-disk {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(18, 175, 90, 0.3) 30deg,
+                rgba(230, 46, 45, 0.3) 60deg,
+                rgba(255, 185, 0, 0.3) 90deg,
+                transparent 120deg,
+                rgba(18, 175, 90, 0.2) 180deg,
+                transparent 240deg,
+                rgba(230, 46, 45, 0.2) 300deg,
+                transparent 360deg
+            );
+            animation: accretion-disk 6s linear infinite;
+            filter: blur(2px);
+        }
+
+        .event-horizon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid rgba(18, 175, 90, 0.4);
+            animation: blackhole-rotate 8s linear infinite;
+            box-shadow: 
+                0 0 10px rgba(18, 175, 90, 0.5),
+                inset 0 0 10px rgba(18, 175, 90, 0.3);
+        }
+
+        .gravity-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid rgba(18, 175, 90, 0.2);
+            animation: gravity-ripple 3s ease-out infinite;
+        }
+
+        .gravity-wave:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .gravity-wave:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        @keyframes gravity-ripple {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
+        }
+
+        /* 🔄 LOADING SKELETON */
+        .skeleton {
+            background: linear-gradient(90deg, #292929 25%, #3a3a3a 50%, #292929 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
 <body class="pb-24">
     
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    
     <header class="header-gradient p-6 pb-8 sticky top-0 z-30">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center space-x-3">
                 <div class="w-12 h-12 bg-black/40 backdrop-blur rounded-2xl flex items-center justify-center">
-                    <img src="https://www.carlsjr.com/images/star-ft.png" alt="">
+                    <img src="https://www.carlsjr.com/images/star-ft.png" alt="Carl's Jr Logo">
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold text-yellow-400">Carl's Jr</h1>
-                    <p class="text-white/80 text-sm">Cambodai TK</p>
+                    <p class="text-white/80 text-sm">Cambodia TK</p>
                 </div>
             </div>
             <button class="w-10 h-10 bg-black/40 backdrop-blur rounded-xl flex items-center justify-center">
@@ -161,15 +516,15 @@
         </div>
         
         <div class="grid grid-cols-3 gap-3">
-            <div class="bg-black/40 backdrop-blur rounded-2xl p-4 text-center">
+            <div class="stat-card mobile-card bg-black/40 backdrop-blur p-4 text-center">
                 <p class="text-white/70 text-xs mb-1">Total</p>
                 <p id="stat-total" class="text-2xl font-bold text-white">0</p>
             </div>
-            <div class="bg-black/40 backdrop-blur rounded-2xl p-4 text-center">
+            <div class="stat-card mobile-card bg-black/40 backdrop-blur p-4 text-center">
                 <p class="text-white/70 text-xs mb-1">Active</p>
                 <p id="stat-active" class="text-2xl font-bold text-white">0</p>
             </div>
-            <div class="bg-black/40 backdrop-blur rounded-2xl p-4 text-center">
+            <div class="stat-card mobile-card bg-black/40 backdrop-blur p-4 text-center">
                 <p class="text-white/70 text-xs mb-1">Expired</p>
                 <p id="stat-expired" class="text-2xl font-bold text-white">0</p>
             </div>
@@ -183,8 +538,7 @@
                 <h2 class="text-xl font-bold text-white">Cooking Oil</h2>
                 <span id="oil-count" class="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-white text-sm font-bold">0</span>
             </div>
-            <div id="oil-list" class="space-y-3">
-                </div>
+            <div id="oil-list" class="space-y-3"></div>
         </div>
         
         <div id="content-soap" class="content-section hidden">
@@ -192,8 +546,7 @@
                 <h2 class="text-xl font-bold text-white">Cleaning Soap</h2>
                 <span id="soap-count" class="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-white text-sm font-bold">0</span>
             </div>
-            <div id="soap-list" class="space-y-3">
-                </div>
+            <div id="soap-list" class="space-y-3"></div>
         </div>
     </main>
     
@@ -252,15 +605,15 @@
                 
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-white/80 mb-2">Date</label>
-                    <input type="date" id="date-input" class="w-full px-4 py-4 border-2 border-gray-700 bg-black rounded-2xl text-base transition text-white">
+                    <input type="date" id="date-input" class="w-full px-4 py-4 border-2 border-green-600 bg-black rounded-2xl text-base transition text-green-400 font-semibold hover:border-green-400">
                 </div>
                 
                 <div class="flex space-x-3">
-                    <button type="button" id="cancel-btn" class="flex-1 py-4 bg-gray-700 text-white/80 rounded-2xl font-bold text-base">
-                        Cancel
+                    <button type="button" id="today-btn" class="flex-1 py-4 bg-yellow-600/20 text-yellow-400 rounded-2xl font-bold text-base transition duration-150 ease-in-out hover:bg-yellow-600/40 hover:bg-yellow-600/60">
+                         Today
                     </button>
-                    <button type="submit" class="flex-1 py-4 header-gradient text-white rounded-2xl font-bold text-base">
-                        Save
+                    <button type="submit" class="flex-1 py-4 animated-gradient text-white rounded-2xl font-bold text-base shadow-lg">
+                         Save
                     </button>
                 </div>
             </form>
@@ -292,24 +645,20 @@
         </div>
     </div>
 
-
     <script>
         const API_BASE_URL = 'https://carl-s-jr-tk-backend.onrender.com/api/inventory/';
         let currentProduct = 'oil';
 
-        // Add Entry Modal Elements
         const addModal = document.getElementById('add-modal');
         const fab = document.getElementById('fab');
         const closeAddModalBtn = document.getElementById('close-add-modal');
-        const cancelBtn = document.getElementById('cancel-btn');
+        const todayBtn = document.getElementById('today-btn'); 
         const entryForm = document.getElementById('entry-form');
         
-        // Modal Inputs
         const dayInput = document.getElementById('day-input'); 
         const dayButtonsContainer = document.getElementById('day-buttons-container');
         const dateInput = document.getElementById('date-input');
         
-        // Custom Modal Elements
         const msgModal = document.getElementById('msg-modal');
         const msgTitle = document.getElementById('msg-title');
         const msgContent = document.getElementById('msg-content');
@@ -320,7 +669,6 @@
         const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
         let pendingDeleteAction = null; 
 
-        // Navigation and Content Elements
         const navOil = document.getElementById('nav-oil');
         const navSoap = document.getElementById('nav-soap');
         const contentOil = document.getElementById('content-oil');
@@ -330,9 +678,6 @@
         const soapList = document.getElementById('soap-list');
         const oilCount = document.getElementById('oil-count');
         const soapCount = document.getElementById('soap-count');
-
-
-        // --- Custom Dialog Functions ---
 
         function showMessage(title, content) {
             msgTitle.textContent = title;
@@ -362,8 +707,6 @@
             document.body.style.overflow = '';
         }
 
-        // --- Add Entry Modal Logic ---
-
         function showAddModal() {
             addModal.classList.remove('hidden');
             addModal.classList.add('flex');
@@ -375,7 +718,6 @@
             addModal.classList.remove('flex');
             entryForm.reset();
             
-            // Reset the custom day input and button styles
             dayInput.value = ''; 
             document.querySelectorAll('.day-select-btn').forEach(btn => {
                 btn.classList.remove('bg-red-700', 'text-white', 'font-bold');
@@ -385,30 +727,23 @@
             document.body.style.overflow = '';
         }
         
-        // Function to handle day button selection
         function handleDaySelection(selectedDay, buttonElement) {
-            // 1. Clear active state from all buttons
             document.querySelectorAll('.day-select-btn').forEach(btn => {
                 btn.classList.remove('bg-red-700', 'text-white', 'font-bold');
                 btn.classList.add('bg-gray-700', 'text-white/80');
             });
 
-            // 2. Set active state on the clicked button (unless it's the "Clear" button with data-day="")
             if (selectedDay) {
                 buttonElement.classList.add('bg-red-700', 'text-white', 'font-bold');
                 buttonElement.classList.remove('bg-gray-700', 'text-white/80');
             }
 
-            // 3. Update the hidden input field value
             dayInput.value = selectedDay;
         }
-
-        // --- Core App Logic ---
 
         function switchTab(product) {
             currentProduct = product;
             
-            // Reset colors
             navOil.classList.remove('nav-item-active', 'text-white');
             navOil.classList.add('text-gray-500');
             navSoap.classList.remove('nav-item-active', 'text-white');
@@ -425,7 +760,6 @@
                 contentSoap.classList.remove('hidden');
                 contentOil.classList.add('hidden');
             }
-            // Fetch and render data for the new tab
             fetchAndRender(currentProduct);
         }
 
@@ -450,7 +784,6 @@
             const { oil, soap } = await fetchAllData();
             
             const total = oil.length + soap.length;
-            // Ensure status property exists before filtering
             const allEntries = [...oil, ...soap].filter(item => item.status); 
             const active = allEntries.filter(item => item.status === 'New Use').length;
             const expired = allEntries.filter(item => item.status === 'Old EXP').length;
@@ -462,28 +795,24 @@
             soapCount.textContent = soap.length;
         }
         
-        // 🚨 MODIFIED: Sort Oldest-First, then Reverse (Newest at Index 0)
         async function fetchAndRender(product) {
             const items = await fetchEntries(product);
             
-            // 1. Sort items by date from OLDEST to NEWEST
             let sortedItems = items.sort((a, b) => {
                 const dateA = new Date(a.date);
                 const dateB = new Date(b.date);
                 return dateA - dateB; 
             });
             
-            // 2. Reverse the array: NEWEST is now at index 0 (will be displayed at the top)
             sortedItems.reverse(); 
 
             renderList(product, sortedItems);
             await updateStats();
         }
 
-        // 🚨 MODIFIED: Custom Numbering (Total - Index)
         function renderList(product, items) {
             const list = product === 'oil' ? oilList : soapList;
-            const totalItems = items.length; // យកចំនួនធាតុសរុប
+            const totalItems = items.length;
             
             if (totalItems === 0) {
                 list.innerHTML = `
@@ -498,9 +827,6 @@
                 return;
             }
             
-            // Numbering Logic: Total Items - Current Index
-            // Index 0 (Newest/Top) gets Total number.
-            // Last Index (Oldest/Bottom) gets #1.
             list.innerHTML = items.map((item, index) => {
                 const customNumber = totalItems - index;
 
@@ -520,7 +846,7 @@
                                 <span class="px-3 py-1.5 ${item.status === 'New Use' ? 'bg-green-600/20 text-green-300' : 'bg-amber-600/20 text-amber-300'} rounded-xl text-xs font-bold">
                                     ${item.status === 'New Use' ? 'USE' : 'Expired'}
                                 </span>
-                                <button onclick="handleDelete('${product}', '${item._id}')" class="w-10 h-10 bg-red-800/20 rounded-xl flex items-center justify-center">
+                                <button onclick="handleDelete('${product}', '${item._id}')" class="delete-btn w-10 h-10 bg-red-800/20 rounded-xl flex items-center justify-center">
                                     <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                     </svg>
@@ -556,71 +882,42 @@
             showConfirm(deleteAction);
         };
 
-        // --- BATCH INSERTION UTILITY (For quick testing/loading data) ---
-        window.insertHardcodedOilData = async function() {
-            const inventoryData = [
-                { day: "Saturday", date: "2025-11-30" }, 
-                { day: "Saturday", date: "2025-11-30" }, 
-                { day: "Saturday", date: "2025-11-29" }, 
-                { day: "Friday", date: "2025-11-22" },   
-                { day: "Friday", date: "2025-11-22" },   
-                { day: "Saturday", date: "2025-11-17" }, 
-                { day: "Saturday", date: "2025-11-07" }  
-            ];
-            
-            const product = 'oil';
-            let successCount = 0;
-            let failCount = 0;
-            
-            showMessage("Loading Data...", `Inserting ${inventoryData.length} entries for Cooking Oil. Please wait.`);
+        function getTodayDateString() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
 
-            for (const [index, entry] of inventoryData.entries()) {
-                try {
-                    const payload = { day: entry.day, date: entry.date };
-                    
-                    const response = await fetch(API_BASE_URL + product, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.ok) {
-                        successCount++;
-                    } else {
-                        failCount++;
-                    }
-                } catch (error) {
-                    failCount++;
+        function setDateToToday() {
+            const todayDate = getTodayDateString();
+            dateInput.value = todayDate;
+            
+            const today = new Date();
+            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayName = daysOfWeek[today.getDay()];
+            
+            const dayButtons = document.querySelectorAll('.day-select-btn');
+            dayButtons.forEach(btn => {
+                if (btn.getAttribute('data-day') === dayName) {
+                    handleDaySelection(dayName, btn);
                 }
-            }
-
-            hideMessage();
-            if (successCount > 0) {
-                // Switch to Oil tab and refresh view
-                switchTab('oil'); 
-                showMessage("Insertion Complete", `Successfully added ${successCount} Oil entries.`);
-            } else if (failCount > 0) {
-                showMessage("Insertion Failed", `Could not add entries. Check your API server.`);
-            } else {
-                 showMessage("No Data Added", "No entries were successfully added.");
-            }
-        };
-
-
-        // --- Event Listeners ---
+            });
+        }
         
         navOil.addEventListener('click', () => switchTab('oil'));
         navSoap.addEventListener('click', () => switchTab('soap'));
         
         fab.addEventListener('click', showAddModal);
         closeAddModalBtn.addEventListener('click', hideAddModal);
-        cancelBtn.addEventListener('click', hideAddModal);
+        
+        todayBtn.addEventListener('click', setDateToToday);
 
         addModal.addEventListener('click', (e) => {
             if (e.target === addModal) hideAddModal();
         });
         
-        // Event listener for Day Buttons using delegation
         dayButtonsContainer.addEventListener('click', (e) => {
             const button = e.target.closest('.day-select-btn');
             if (button) {
@@ -629,28 +926,39 @@
             }
         });
 
-        // Message Modal Listeners
+        dateInput.addEventListener('change', (e) => {
+            if (e.target.value) {
+                const selectedDate = new Date(e.target.value + 'T00:00:00');
+                const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayName = daysOfWeek[selectedDate.getDay()];
+                
+                const dayButtons = document.querySelectorAll('.day-select-btn');
+                dayButtons.forEach(btn => {
+                    if (btn.getAttribute('data-day') === dayName) {
+                        handleDaySelection(dayName, btn);
+                    }
+                });
+            }
+        });
+
         msgCloseBtn.addEventListener('click', hideMessage);
         msgModal.addEventListener('click', (e) => {
             if (e.target === msgModal) hideMessage();
         });
 
-        // Confirmation Modal Listeners
         confirmCancelBtn.addEventListener('click', hideConfirm);
         confirmOkBtn.addEventListener('click', () => {
             if (pendingDeleteAction) {
-                pendingDeleteAction(); // Execute the pending delete function
+                pendingDeleteAction();
             }
         });
         confirmModal.addEventListener('click', (e) => {
             if (e.target === confirmModal) hideConfirm();
         });
 
-
         entryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Reading the value from the hidden input, set by the buttons
             const day = dayInput.value.trim(); 
             const date = dateInput.value.trim();
             
@@ -671,17 +979,17 @@
                 if (response.ok) {
                     hideAddModal();
                     fetchAndRender(currentProduct);
+                    showMessage("Success", "Entry added successfully!");
                 } else {
                     const errorData = await response.json();
                     showMessage("Error", `Failed to save entry. Server response: ${errorData.error || 'Unknown error.'}`);
                 }
             } catch (error) {
                 console.error('Error saving entry:', error);
-                showMessage("Network Error", 'Network error while saving entry. Check if Flask API is running.');
+                showMessage("Network Error", 'Network error while saving entry. Check if the API is running.');
             }
         });
 
-        // Initialize state on load
         switchTab('oil');
     </script>
 </body>
